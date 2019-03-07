@@ -1,0 +1,33 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"  
+             xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" 
+             xmlns:xerces="http://xerces.apache.org"
+             vc:minVersion="1.1">
+  <xs:element name="HOUSES" type="HousesType"/>
+  <xs:complexType name="HousesType">
+    <xs:sequence>
+      <xs:element type="HouseType" name="HOUSE" maxOccurs="unbounded" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HouseType">
+    <xs:sequence>
+      <xs:element type="StateType" name="STATE"/>
+      <xs:element type="xs:string" name="ADDRESS"/>
+      <xs:element type="xs:int" name="AREA"/>
+      <xs:element type="xs:int" name="BASEMENTSIZE" minOccurs="0"/>
+      <xs:element type="xs:int" name="POOLSIZE" minOccurs="0"/>
+    </xs:sequence>
+    <xs:assert test="(not(STATE = 'TX') and not(TRANSACTION_CODE = 'WA')) or BASEMENTSIZE"
+               xerces:message="BASEMENTSIZE is required for all houses in WA and TX"/>
+    <xs:assert test="not(STATE = 'FL') or POOLSIZE"
+               xerces:message="POOLSIZE is required for all houses in FL"/>
+    
+  </xs:complexType>
+  <xs:simpleType name="StateType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TX"/>
+      <xs:enumeration value="WA"/>
+      <xs:enumeration value="FL"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
