@@ -16,7 +16,7 @@
       <xs:element type="xs:int" name="BASEMENTSIZE" minOccurs="0"/>
       <xs:element type="xs:int" name="POOLSIZE" minOccurs="0"/>
     </xs:sequence>
-    <xs:assert test="(not(STATE = 'TX') and not(TRANSACTION_CODE = 'WA')) or BASEMENTSIZE"
+    <xs:assert test="(not(STATE = 'TX') and not(STATE = 'WA')) or BASEMENTSIZE"
                xerces:message="BASEMENTSIZE is required for all houses in WA and TX"/>
     <xs:assert test="not(STATE = 'FL') or POOLSIZE"
                xerces:message="POOLSIZE is required for all houses in FL"/>
